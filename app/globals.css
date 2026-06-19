@@ -41,6 +41,21 @@ body {
   animation: fade-up 0.7s ease-out both;
 }
 
+@keyframes carousel-slide {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-carousel-slide {
+  animation: carousel-slide 1.4s ease-out both;
+}
+
 a {
   color: inherit;
   text-decoration: none;

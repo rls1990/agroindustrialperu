@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { navigationItems, whatsappLink } from "@/data/navigation";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 
@@ -11,7 +11,80 @@ type HeaderNavProps = {
 };
 
 export function HeaderNav({ mobile = false, onLinkClick }: HeaderNavProps) {
-  const pathname = usePathname();
+  const [activeHash, setActiveHash] = useState("");
+
+  const scrollToTarget = (hash: string) => {
+    const target =
+      hash === "#inicio" ? document.documentElement : document.querySelector(hash);
+
+    if (!(target instanceof HTMLElement || target instanceof HTMLHtmlElement)) {
+      return;
+    }
+
+    const headerOffset = 96;
+    const startY = window.scrollY;
+    const targetY =
+      hash === "#inicio"
+        ? 0
+        : target.getBoundingClientRect().top + window.scrollY - headerOffset;
+    const distance = targetY - startY;
+    const duration = 700;
+    const startTime = performance.now();
+
+    const easeInOutCubic = (t: number) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const step = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeInOutCubic(progress);
+
+      window.scrollTo(0, startY + distance * eased);
+
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+
+    window.requestAnimationFrame(step);
+  };
+
+  useEffect(() => {
+    const sections = navigationItems
+      .map((item) => document.querySelector(item.href))
+      .filter((section): section is HTMLElement => section instanceof HTMLElement);
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visibleEntry?.target instanceof HTMLElement) {
+          setActiveHash(`#${visibleEntry.target.id}`);
+        }
+      },
+      {
+        root: null,
+        threshold: [0.2, 0.4, 0.6, 0.8],
+        rootMargin: "-20% 0px -55% 0px",
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    const currentHash = window.location.hash || "#inicio";
+    const frame = window.requestAnimationFrame(() => {
+      setActiveHash(currentHash);
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, []);
 
   if (mobile) {
     return (
@@ -19,16 +92,20 @@ export function HeaderNav({ mobile = false, onLinkClick }: HeaderNavProps) {
         {navigationItems.map((item) => (
           <Link
             key={item.label}
-            href={`/${item.href}`}
-            onClick={onLinkClick}
+            href={item.href}
+            onClick={(event) => {
+              event.preventDefault();
+              scrollToTarget(item.href);
+              onLinkClick?.();
+            }}
             className={`rounded-lg px-2 py-4 text-[15px] font-semibold transition-colors hover:bg-emerald-950/5 hover:text-rose-600`}
           >
             <span
-              className={`${
-                pathname === `/${item.href}`
+              className={
+                activeHash === item.href
                   ? "text-rose-600"
                   : "text-emerald-900"
-              }`}
+              }
             >
               {item.label}
             </span>
@@ -53,15 +130,19 @@ export function HeaderNav({ mobile = false, onLinkClick }: HeaderNavProps) {
       {navigationItems.map((item) => (
         <Link
           key={item.label}
-          href={`/${item.href}`}
+          href={item.href}
+          onClick={(event) => {
+            event.preventDefault();
+            scrollToTarget(item.href);
+          }}
           className={`inline-flex items-center px-1.5 py-1 text-[15px] font-semibold transition-colors cursor-pointer`}
         >
           <span
-            className={`${
-              pathname === `/${item.href}`
+            className={
+              activeHash === item.href
                 ? "text-rose-600"
                 : "text-emerald-950 hover:text-rose-600"
-            }`}
+            }
           >
             {item.label}
           </span>
