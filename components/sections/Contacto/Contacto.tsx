@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { SendHorizontal } from "lucide-react";
 import { whatsappLink, instagramLink, facebookLink, linkedinLink } from "@/data/navigation";
+import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 
 const contactCards = [
   {
@@ -147,7 +149,7 @@ export function Contacto() {
 
             <label className="mt-4 block">
               <span className="text-sm font-bold text-[#314a3d]">Mensaje</span>
-                <textarea
+              <textarea
                 rows={4}
                 placeholder="Cuéntanos qué producto necesitas, volúmenes aproximados y destino."
                 className="mt-2 w-full resize-none rounded-lg border border-[#153c2d]/12 bg-[#fbfaf3] px-4 py-3 text-sm text-[#153c2d] outline-none transition placeholder:text-[#8a9b92] focus:border-[#b93838]/50"
@@ -157,18 +159,20 @@ export function Contacto() {
             <div className="mt-5 flex flex-wrap gap-3">
               <button
                 type="submit"
-                className="inline-flex min-h-11 items-center justify-center rounded-lg bg-[#153c2d] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#0f2d21]"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#153c2d] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#0f2d21]"
               >
-                Enviar mensaje
+                <SendHorizontal className="h-4 w-4" aria-hidden="true" />
+                <span>Enviar mensaje</span>
               </button>
 
               <Link
                 href={whatsappLink}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex min-h-11 items-center justify-center rounded-lg border border-[#153c2d]/12 bg-white px-5 py-3 text-sm font-bold text-[#153c2d] transition hover:border-[#b93838]/40 hover:text-[#b93838]"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-[#153c2d]/12 bg-white px-5 py-3 text-sm font-bold text-[#153c2d] transition hover:border-[#b93838]/40 hover:text-[#b93838]"
               >
-                WhatsApp directo
+                <WhatsAppIcon className="h-4 w-4" />
+                <span>WhatsApp directo</span>
               </Link>
             </div>
           </form>
