@@ -10,7 +10,6 @@ export default function Home() {
       <section id="inicio">
         <Hero />
       </section>
-
       <Productos />
       <Nosotros />
       <Clientes />

@@ -21,7 +21,7 @@ export function HeaderNav({ mobile = false, onLinkClick }: HeaderNavProps) {
       return;
     }
 
-    const headerOffset = 96;
+    const headerOffset = 72;
     const startY = window.scrollY;
     const targetY =
       hash === "#inicio"
@@ -56,33 +56,38 @@ export function HeaderNav({ mobile = false, onLinkClick }: HeaderNavProps) {
 
     if (!sections.length) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    const headerOffset = 72;
 
-        if (visibleEntry?.target instanceof HTMLElement) {
-          setActiveHash(`#${visibleEntry.target.id}`);
+    const updateActiveSection = () => {
+      const currentPoint = window.scrollY + window.innerHeight * 0.35 + headerOffset;
+
+      let currentSection = sections[0];
+
+      for (const section of sections) {
+        const sectionTop = section.offsetTop;
+        const sectionBottom = sectionTop + section.offsetHeight;
+
+        if (sectionTop <= currentPoint && currentPoint < sectionBottom) {
+          currentSection = section;
+          break;
         }
-      },
-      {
-        root: null,
-        threshold: [0.2, 0.4, 0.6, 0.8],
-        rootMargin: "-20% 0px -55% 0px",
-      },
-    );
 
-    sections.forEach((section) => observer.observe(section));
+        if (sectionTop <= currentPoint) {
+          currentSection = section;
+        }
+      }
 
-    const currentHash = window.location.hash || "#inicio";
-    const frame = window.requestAnimationFrame(() => {
-      setActiveHash(currentHash);
-    });
+      setActiveHash(`#${currentSection.id}`);
+    };
+
+    const frame = window.requestAnimationFrame(updateActiveSection);
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
 
     return () => {
       window.cancelAnimationFrame(frame);
-      observer.disconnect();
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
     };
   }, []);
 
@@ -95,6 +100,7 @@ export function HeaderNav({ mobile = false, onLinkClick }: HeaderNavProps) {
             href={item.href}
             onClick={(event) => {
               event.preventDefault();
+              setActiveHash(item.href);
               scrollToTarget(item.href);
               onLinkClick?.();
             }}
@@ -133,6 +139,7 @@ export function HeaderNav({ mobile = false, onLinkClick }: HeaderNavProps) {
           href={item.href}
           onClick={(event) => {
             event.preventDefault();
+            setActiveHash(item.href);
             scrollToTarget(item.href);
           }}
           className={`inline-flex items-center px-1.5 py-1 text-[15px] font-semibold transition-colors cursor-pointer`}
