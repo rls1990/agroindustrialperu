@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from "@/components/icons/ProductIcons";
+import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import Image from "next/image";
 import Link from "next/link";
 import type { Detail, Product } from "@/data/products";
@@ -66,9 +67,10 @@ export function ProductCard({ product }: { product: Product }) {
             href={product.contactHref}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-[#25d366] px-4 text-sm font-bold text-white transition hover:bg-[#1fb158] focus-visible:ring-2 focus-visible:ring-[#25d366] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbfaf3]"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-green-700 focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbfaf3]"
           >
-            Contactar
+            <WhatsAppIcon className="h-4 w-4 shrink-0 text-white" />
+            <span className="text-white">Contactar</span>
           </Link>
 
           <Link
