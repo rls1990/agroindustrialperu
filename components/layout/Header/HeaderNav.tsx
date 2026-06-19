@@ -15,7 +15,9 @@ export function HeaderNav({ mobile = false, onLinkClick }: HeaderNavProps) {
 
   const scrollToTarget = (hash: string) => {
     const target =
-      hash === "#inicio" ? document.documentElement : document.querySelector(hash);
+      hash === "#inicio"
+        ? document.documentElement
+        : document.querySelector(hash);
 
     if (!(target instanceof HTMLElement || target instanceof HTMLHtmlElement)) {
       return;
@@ -29,6 +31,7 @@ export function HeaderNav({ mobile = false, onLinkClick }: HeaderNavProps) {
         : target.getBoundingClientRect().top + window.scrollY - headerOffset;
     const distance = targetY - startY;
     const duration = 700;
+    // eslint-disable-next-line react-hooks/purity
     const startTime = performance.now();
 
     const easeInOutCubic = (t: number) =>
@@ -52,14 +55,17 @@ export function HeaderNav({ mobile = false, onLinkClick }: HeaderNavProps) {
   useEffect(() => {
     const sections = navigationItems
       .map((item) => document.querySelector(item.href))
-      .filter((section): section is HTMLElement => section instanceof HTMLElement);
+      .filter(
+        (section): section is HTMLElement => section instanceof HTMLElement,
+      );
 
     if (!sections.length) return;
 
     const headerOffset = 72;
 
     const updateActiveSection = () => {
-      const currentPoint = window.scrollY + window.innerHeight * 0.35 + headerOffset;
+      const currentPoint =
+        window.scrollY + window.innerHeight * 0.35 + headerOffset;
 
       let currentSection = sections[0];
 
@@ -108,9 +114,7 @@ export function HeaderNav({ mobile = false, onLinkClick }: HeaderNavProps) {
           >
             <span
               className={
-                activeHash === item.href
-                  ? "text-rose-600"
-                  : "text-emerald-900"
+                activeHash === item.href ? "text-rose-600" : "text-emerald-900"
               }
             >
               {item.label}
