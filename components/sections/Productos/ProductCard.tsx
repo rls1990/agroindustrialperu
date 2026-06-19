@@ -77,11 +77,24 @@ export function ProductCard({ product }: { product: Product }) {
             href={product.detailsHref}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-[#153c2d]/18 bg-white/70 px-4 text-sm font-bold text-[#153c2d] transition hover:border-[#b93838]/45 hover:text-[#b93838] focus-visible:ring-2 focus-visible:ring-[#b93838] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbfaf3]"
+            className="group inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-[#153c2d]/18 bg-white/70 px-4 text-sm font-bold text-[#153c2d] transition hover:border-[#b93838]/45 hover:text-[#b93838] focus-visible:ring-2 focus-visible:ring-[#b93838] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbfaf3]"
           >
-            DETALLES
-            <ArrowRightIcon className="h-4 w-4" color="#153c2d" />
+            <span className="text-[#153c2d] transition-colors group-hover:text-[#b93838]">
+              DETALLES
+            </span>
+            <ArrowRightIcon
+              className="h-4 w-4 translate-x-0 text-[#153c2d] transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-[#b93838]"
+            />
           </Link>
+
+          <button
+            type="button"
+            className="group inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-md border border-[#153c2d]/18 bg-white/70 px-4 text-sm font-bold text-[#153c2d] transition hover:border-[#b93838]/45 focus-visible:ring-2 focus-visible:ring-[#b93838] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbfaf3]"
+          >
+            <span className="text-[#153c2d] transition-colors group-hover:text-[#b93838]">
+              EXTRAS
+            </span>
+          </button>
         </div>
       </div>
 
