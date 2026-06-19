@@ -2,7 +2,7 @@ import { ArrowRightIcon } from "@/components/icons/ProductIcons";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import Image from "next/image";
 import Link from "next/link";
-import type { Detail, Product } from "@/data/products";
+import type { Product } from "@/data/products";
 import { DetailIcon } from "./DetailIcon";
 
 export function ProductCard({ product }: { product: Product }) {

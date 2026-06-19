@@ -1,10 +1,19 @@
 # Agroindustrial Peru
 
-Landing page en Next.js para una prueba tecnica enfocada en una marca de frutas/agroindustria.
+Landing page construida con Next.js para una marca de frutas y agroindustria.
 
-## Estructura base
+La página está organizada como una sola vista con navegación por anclas:
 
-La idea es separar la pagina en bloques faciles de mantener:
+- `#inicio`
+- `#productos`
+- `#nosotros`
+- `#clientes`
+- `#contacto`
+
+El header hace scroll animado entre secciones y el link activo cambia de color
+según la sección visible.
+
+## Estructura
 
 ```txt
 app/
@@ -18,83 +27,54 @@ components/
     Footer/
   sections/
     Hero/
-    About/
-    Products/
-    Benefits/
-    Gallery/
-    Contact/
-  ui/
-    Button/
-    Container/
-    SectionTitle/
+    Productos/
+    Nosotros/
+    Clientes/
+    Contacto/
+  icons/
 
 data/
   navigation.ts
   products.ts
 
-lib/
-  utils.ts
-
 public/
   images/
-  icons/
 ```
 
-## Para que sirve cada carpeta
+## Componentes principales
 
-### `app/`
-Contiene la estructura principal de Next.js:
+### `components/layout/Header/`
 
-- `layout.tsx`: layout global de la app.
-- `page.tsx`: pagina principal de la landing.
-- `globals.css`: estilos globales y variables base.
+- `Header`: barra superior fija con navegación principal.
+- `HeaderBrand`: logo/texto de marca con scroll animado al inicio.
+- `HeaderNav`: navegación por anclas con estado activo por scroll.
+- `HeaderMobileButton`: botón móvil para abrir el menú.
+- `MobileMenu`: menú lateral para pantallas pequeñas.
 
-### `components/layout/`
-Componentes de estructura general.
+### `components/layout/Footer/`
 
-- `Header`: barra superior de navegacion.
-- `Footer`: pie de pagina con enlaces y datos de contacto.
+- `Footer`: pie de página con redes sociales y copyright.
 
 ### `components/sections/`
-Secciones grandes de la landing, una por bloque visual.
 
-- `Hero`: primera pantalla, titulo principal y llamada a la accion.
-- `About`: descripcion de la empresa o propuesta de valor.
-- `Products`: lista de productos o categorias.
-- `Benefits`: ventajas o diferenciadores.
-- `Gallery`: imagenes o composicion visual.
-- `Contact`: formulario o datos de contacto.
+- `Hero`: primera pantalla con texto principal y carrusel.
+- `Productos`: cards de productos con datos desde `data/products.ts`.
+- `Nosotros`: descripción de la empresa.
+- `Clientes`: bloque de clientes con carrusel de logos.
+- `Contacto`: tarjetas de contacto y formulario visual.
 
-### `components/ui/`
-Piezas reutilizables pequenas.
+### `components/icons/`
 
-- `Button`: boton principal o secundario.
-- `Container`: wrapper para alinear el contenido.
-- `SectionTitle`: titulo reutilizable para secciones.
+Iconos SVG reutilizables para botones, listas y redes sociales.
 
-### `data/`
-Contenido estatico separado del JSX.
+## Datos
 
-Esto ayuda a mantener los componentes limpios y facilita editar textos o listas sin tocar la estructura.
+La información está separada del JSX para mantener los componentes limpios:
 
-### `lib/`
-Funciones auxiliares y utilidades compartidas.
+- `data/navigation.ts`: links del nav, footer y WhatsApp.
+- `data/products.ts`: catálogo de productos, títulos, colores y detalles.
 
-### `public/`
-Archivos estaticos accesibles desde la app, como imagenes e iconos.
-
-## Orden recomendado para construir la landing
-
-1. `Header`
-2. `Hero`
-3. `About`
-4. `Products`
-5. `Benefits`
-6. `Gallery`
-7. `Contact`
-8. `Footer`
-
-## Comandos utiles
+## Comandos
 
 ```bash
 npm run dev
@@ -102,13 +82,10 @@ npm run build
 npm run lint
 ```
 
-## Nota
+## Notas de implementación
 
-Esta estructura esta pensada para crecer sin desordenarse. Si la landing termina siendo pequena, puedes usar solo:
+- El layout usa `app/layout.tsx` para el header y footer globales.
+- `app/page.tsx` orquesta todas las secciones de la landing.
+- El scroll del nav está animado y ajustado para no quedar tapado por el header sticky.
+- `Nosotros` y `Clientes` ocupan todo el ancho visual de la pantalla.
 
-```txt
-app/
-components/
-data/
-public/
-```
