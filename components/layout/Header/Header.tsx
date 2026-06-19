@@ -51,16 +51,14 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-black/5 bg-[#f7f6ef]/95 backdrop-blur">
-        <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6 lg:px-8">
+        <div className="mx-auto flex h-22 w-full max-w-7xl items-center justify-between px-6 lg:px-0">
           <HeaderBrand />
           <HeaderNav />
           <HeaderMobileButton onOpen={openMenu} isOpen={isOpen} />
         </div>
       </header>
 
-      {isMounted ? (
-        <MobileMenu isOpen={isOpen} onClose={closeMenu} />
-      ) : null}
+      {isMounted ? <MobileMenu isOpen={isOpen} onClose={closeMenu} /> : null}
     </>
   );
 }

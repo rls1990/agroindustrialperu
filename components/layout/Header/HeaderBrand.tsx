@@ -4,9 +4,12 @@ interface HeaderBrandProps {
   fontSize?: string;
 }
 
-export function HeaderBrand({ fontSize = "text-2xl" }: HeaderBrandProps) {
+export function HeaderBrand({ fontSize = "text-[27px]" }: HeaderBrandProps) {
   return (
-    <Link href="/" className={`${fontSize} font-bold tracking-tight`}>
+    <Link
+      href="/"
+      className={`${fontSize} font-bold tracking-tight -translate-x-3`}
+    >
       <span className="text-emerald-950">Agroindustrial</span>{" "}
       <span className="text-rose-700">Peru</span>
     </Link>

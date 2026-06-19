@@ -22,13 +22,6 @@ export function Hero() {
           exportación y una cadena preparada para crecer contigo.
         </p>
         <div className="mt-8 flex flex-wrap gap-4">
-          {/* <a
-            href="#contacto"
-            className="rounded-lg bg-emerald-950 px-6 py-3 font-semibold text-white transition-colors hover:bg-emerald-900"
-          >
-            Contactar
-          </a> */}
-
           <Link
             href={whatsappLink}
             target="_blank"

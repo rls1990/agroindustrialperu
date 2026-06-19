@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { navigationItems, whatsappLink } from "@/data/navigation";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 
@@ -8,17 +11,27 @@ type HeaderNavProps = {
 };
 
 export function HeaderNav({ mobile = false, onLinkClick }: HeaderNavProps) {
+  const pathname = usePathname();
+
   if (mobile) {
     return (
-      <nav className="flex flex-1 flex-col px-6 py-10">
+      <nav className="flex flex-1 flex-col px-6 py-7">
         {navigationItems.map((item) => (
           <Link
             key={item.label}
-            href={item.href}
+            href={`/${item.href}`}
             onClick={onLinkClick}
-            className="rounded-lg px-2 py-4 text-lg font-semibold text-emerald-900 transition-colors hover:bg-emerald-950/5 hover:text-rose-600 text-[15px]"
+            className={`rounded-lg px-2 py-4 text-[15px] font-semibold transition-colors hover:bg-emerald-950/5 hover:text-rose-600`}
           >
-            {item.label}
+            <span
+              className={`${
+                pathname === `/${item.href}`
+                  ? "text-rose-600"
+                  : "text-emerald-900"
+              }`}
+            >
+              {item.label}
+            </span>
           </Link>
         ))}
 
@@ -40,10 +53,16 @@ export function HeaderNav({ mobile = false, onLinkClick }: HeaderNavProps) {
       {navigationItems.map((item) => (
         <Link
           key={item.label}
-          href={item.href}
-          className="inline-flex items-center px-1.5 py-1 text-[15px] font-semibold cursor-pointer group"
+          href={`/${item.href}`}
+          className={`inline-flex items-center px-1.5 py-1 text-[15px] font-semibold transition-colors cursor-pointer`}
         >
-          <span className="text-emerald-950 transition-colors hover:text-rose-600">
+          <span
+            className={`${
+              pathname === `/${item.href}`
+                ? "text-rose-600"
+                : "text-emerald-950 hover:text-rose-600"
+            }`}
+          >
             {item.label}
           </span>
         </Link>
