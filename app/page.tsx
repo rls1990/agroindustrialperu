@@ -1,4 +1,8 @@
 import { Hero } from "@/components/sections/Hero/Hero";
+import { Productos } from "@/components/sections/Productos/Productos";
+import { Nosotros } from "@/components/sections/Nosotros/Nosotros";
+import { Clientes } from "@/components/sections/Clientes/Clientes";
+import { Contacto } from "@/components/sections/Contacto/Contacto";
 
 export default function Home() {
   return (
@@ -7,35 +11,10 @@ export default function Home() {
         <Hero />
       </section>
 
-      <section
-        id="productos"
-        className="mx-auto flex min-h-[80vh] w-full max-w-7xl items-start py-16 scroll-mt-20"
-      >
-        <h2 className="text-3xl font-bold text-emerald-950">Productos</h2>
-      </section>
-
-      <section
-        id="nosotros"
-        className="mx-auto flex min-h-[80vh] w-full max-w-7xl items-start py-16 scroll-mt-20"
-      >
-        <h2 className="text-3xl font-bold text-emerald-950">Nosotros</h2>
-      </section>
-
-      <section
-        id="clientes"
-        className="mx-auto flex min-h-[80vh] w-full max-w-7xl items-start py-16 scroll-mt-20"
-      >
-        <h2 className="text-3xl font-bold text-emerald-950">
-          Nuestros Clientes
-        </h2>
-      </section>
-
-      <section
-        id="contacto"
-        className="mx-auto flex min-h-[80vh] w-full max-w-7xl items-start py-16 scroll-mt-20"
-      >
-        <h2 className="text-3xl font-bold text-emerald-950">Contacto</h2>
-      </section>
+      <Productos />
+      <Nosotros />
+      <Clientes />
+      <Contacto />
     </main>
   );
 }
