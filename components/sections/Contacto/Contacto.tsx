@@ -159,7 +159,7 @@ export function Contacto() {
             <div className="mt-5 flex flex-wrap gap-3">
               <button
                 type="submit"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#153c2d] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#0f2d21]"
+                className="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#153c2d] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#0f2d21]"
               >
                 <SendHorizontal className="h-4 w-4" aria-hidden="true" />
                 <span>Enviar mensaje</span>
