@@ -7,3 +7,6 @@ export const navigationItems = [
 ];
 
 export const whatsappLink = "https://wa.me/65464564654";
+export const facebookLink = "https://facebook.com/agroindustrialperu";
+export const instagramLink = "https://instagram.com/agroindustrialperu";
+export const linkedinLink = "https://linkedin.com/company/agroindustrialperu";
