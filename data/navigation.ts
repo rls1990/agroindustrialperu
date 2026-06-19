@@ -5,4 +5,4 @@ export const navigationItems = [
   { label: "Contacto", href: "#contacto" },
 ];
 
-export const whatsappLink = "https://wa.me/51999999999";
+export const whatsappLink = "https://wa.me/65464564654";

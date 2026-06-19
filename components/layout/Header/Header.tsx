@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HeaderBrand } from "./HeaderBrand";
 import { HeaderMobileButton } from "./HeaderMobileButton";
 import { HeaderNav } from "./HeaderNav";
@@ -8,11 +8,43 @@ import { MobileMenu } from "./MobileMenu";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const closeTimerRef = useRef<number | null>(null);
+  const openFrameRef = useRef<number | null>(null);
+
+  const openMenu = () => {
+    if (closeTimerRef.current) {
+      window.clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    if (openFrameRef.current) {
+      window.cancelAnimationFrame(openFrameRef.current);
+      openFrameRef.current = null;
+    }
+
+    setIsMounted(true);
+    openFrameRef.current = window.requestAnimationFrame(() => {
+      setIsOpen(true);
+      openFrameRef.current = null;
+    });
+  };
+
+  const closeMenu = () => {
+    setIsOpen(false);
+    closeTimerRef.current = window.setTimeout(() => {
+      setIsMounted(false);
+      closeTimerRef.current = null;
+    }, 300);
+  };
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
+      if (openFrameRef.current) {
+        window.cancelAnimationFrame(openFrameRef.current);
+        openFrameRef.current = null;
+      }
     };
   }, [isOpen]);
 
@@ -22,11 +54,13 @@ export function Header() {
         <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6 lg:px-8">
           <HeaderBrand />
           <HeaderNav />
-          <HeaderMobileButton onOpen={() => setIsOpen(true)} isOpen={isOpen} />
+          <HeaderMobileButton onOpen={openMenu} isOpen={isOpen} />
         </div>
       </header>
 
-      {isOpen ? <MobileMenu onClose={() => setIsOpen(false)} /> : null}
+      {isMounted ? (
+        <MobileMenu isOpen={isOpen} onClose={closeMenu} />
+      ) : null}
     </>
   );
 }

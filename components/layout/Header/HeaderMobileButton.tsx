@@ -3,12 +3,15 @@ type HeaderMobileButtonProps = {
   isOpen: boolean;
 };
 
-export function HeaderMobileButton({ onOpen, isOpen }: HeaderMobileButtonProps) {
+export function HeaderMobileButton({
+  onOpen,
+  isOpen,
+}: HeaderMobileButtonProps) {
   return (
     <button
       type="button"
       onClick={onOpen}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-950/10 bg-white text-emerald-950 md:hidden"
+      className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-950/10 bg-white text-emerald-800 md:hidden hover:bg-gray-200 cursor-pointer"
       aria-label="Abrir menú"
       aria-expanded={isOpen}
       aria-controls="mobile-menu"
